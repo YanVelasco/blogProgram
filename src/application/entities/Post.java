@@ -1,10 +1,13 @@
 package application.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
 public class Post {
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
     private Date moment;
     private String title;
     private String content;
@@ -15,12 +18,11 @@ public class Post {
     }
 
 
-    public Post(Date moment, String title, String content, Integer likes, ArrayList<Comment> comments) {
+    public Post(Date moment, String title, String content, Integer likes) {
         this.moment = moment;
         this.title = title;
         this.content = content;
         this.likes = likes;
-        this.comments = comments;
     }
 
     public Date getMoment() {
@@ -59,8 +61,12 @@ public class Post {
         return this.comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
+    public void addComment(Comment coment){
+        this.comments.add(coment);
+    }
+
+    public void removeComment(Comment comment){
+        this.comments.remove(comment);
     }
 
     public Post moment(Date moment) {
@@ -83,11 +89,6 @@ public class Post {
         return this;
     }
 
-    public Post comments(ArrayList<Comment> comments) {
-        setComments(comments);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -106,14 +107,16 @@ public class Post {
 
     @Override
     public String toString() {
-        return "{" +
-            " moment='" + getMoment() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", content='" + getContent() + "'" +
-            ", likes='" + getLikes() + "'" +
-            ", comments='" + getComments() + "'" +
-            "}";
+       StringBuilder sb = new StringBuilder();
+       sb.append(title + "\n");
+       sb.append(likes);
+       sb.append(" Likes - ");
+       sb.append(sdf.format(moment) + "\n");
+       sb.append(content + "\n");
+       sb.append( "Comments:\n");
+       for (Comment c : comments) {
+            sb.append(c.getText() + "\n");
+       }
+    return sb.toString();
     }
-    
-
 }
