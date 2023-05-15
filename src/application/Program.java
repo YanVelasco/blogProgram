@@ -7,7 +7,7 @@ import application.entities.Post;
 
 public class Program {
     public static void main(String[] args) throws Exception {
-        // Passando um data para Sting
+        // Passando uma data para Sting
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         Comment c1 = new Comment("Have a nice trip!");
